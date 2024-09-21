@@ -161,11 +161,101 @@ class LegislativeProcessPage(tk.Frame):
             definition_label = tk.Label(jargon_scrollable_frame, text=definition, font=("Arial", 12), bg='grey', fg='black', wraplength=900, justify="left", anchor="w")
             definition_label.pack(fill="x", padx=10, pady=5)
 
+        
+        # Game Tab with Scrollable Glossary
+        game_frame = ttk.Frame(notebook)
+        game_paned_window = ttk.PanedWindow(game_frame, orient=tk.HORIZONTAL)
+        game_paned_window.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
+       
+
+        flashcard_frame = FlashcardFrame(game_paned_window)
+        game_paned_window.add(flashcard_frame, weight=1)
+
+        notebook.add(game_frame, text="Game")
+
         # Back button with a simpler style
         back_button = tk.Button(self, text="Back", command=show_homepage, font=("Arial", 12), bg="#1bc3cc", fg="black", activebackground="#139c9f", activeforeground="black", width=10, height=2, bd=0, highlightthickness=0)
         back_button.pack(side=tk.BOTTOM, anchor=tk.SE, padx=10, pady=10)
 
-# Example usage
+# Game Setup
+class FlashcardFrame(tk.Frame):
+    def __init__(self, master):
+        super().__init__(master)
+        self.configure(bg='grey')  # Set the background color to grey
+
+        self.glossary_terms = [
+            {"front": "Amendment", "back": "A change or addition proposed during debate on a bill in a legislative assembly."},
+            {"front": "Bicameral", "back": "A legislature consisting of two houses, such as the U.S. Congress, which is made up of the Senate and House of Representatives."},
+            {"front": "Bill", "back": "A proposal for a new law or a change to an existing law presented for debate before a legislative body."},
+            {"front": "Cloture", "back": "A procedure used in the Senate to bring debate to an end, requiring a supermajority vote."},
+            {"front": "Filibuster", "back": "A tactic used by senators to delay or block legislative action by extending debate on the measure."},
+            {"front": "Quorum", "back": "The minimum number of members required to be present for the legislative body to conduct official business."},
+            {"front": "Rider", "back": "An additional provision added to a bill or other measure under the consideration of a legislature, having little connection with the subject matter of the bill."},
+            {"front": "Veto", "back": "The constitutional right of a president or governor to reject a decision or proposal made by a law-making body."},
+            {"front": "Conference Committee", "back": "A temporary, joint committee formed to resolve differences between the House and Senate versions of a bill."},
+            {"front": "Markup", "back": "The process by which a congressional committee or subcommittee debates, amends, and rewrites proposed legislation."},
+            {"front": "Gerrymandering", "back": "The practice of manipulating the boundaries of an electoral constituency to favor one party or class."},
+            {"front": "Hearing", "back": "A meeting or session of a Senate, House, joint, or special committee of Congress, usually open to the public, to obtain information and opinions on proposed legislation."},
+            {"front": "Incumbent", "back": "The current holder of a political office."},
+            {"front": "Lobbying", "back": "The act of attempting to influence the actions, policies, or decisions of officials in their daily life, most often legislators or members of regulatory agencies."},
+            {"front": "Majority Leader", "back": "The head of the majority party in a legislative body, especially the US Senate or House of Representatives."},
+            {"front": "Minority Leader", "back": "The head of the minority party in a legislative body, especially the US Senate or House of Representatives."},
+            {"front": "Resolution", "back": "A legislative measure passed by only either the Senate or the House. It does not have the force of law."},
+            {"front": "Whip", "back": "An official of a political party whose task is to ensure party discipline in a legislature."}
+        ]
+        self.current_card_index = 0
+        self.is_front = True
+
+        self.flashcard_width = 400
+        self.flashcard_height = 300
+
+        self.flashcard_canvas = tk.Canvas(self, width=self.flashcard_width, height=self.flashcard_height, bg="grey", bd=0, highlightthickness=0)
+        self.flashcard_canvas.pack(pady=20)
+
+        self.flashcard_canvas.create_rectangle(10, 10, self.flashcard_width - 10, self.flashcard_height - 10, fill="#1bc3cc", outline="")
+
+        self.flashcard = self.flashcard_canvas.create_text(self.flashcard_width // 2, self.flashcard_height // 2, text=self.glossary_terms[self.current_card_index]["front"],
+                                                      font=("Arial", 18, "bold"), width=self.flashcard_width - 40, justify="center", fill="white")
+
+        self.flashcard_canvas.bind("<Button-1>", self.flip_flashcard)
+
+        caret_frame = tk.Frame(self, bg='grey')
+        caret_frame.pack(pady=10)
+
+        backward_caret_canvas = tk.Canvas(caret_frame, width=50, height=50, bg='grey', bd=0, highlightthickness=0)
+        backward_caret_canvas.pack(side=tk.LEFT, padx=10)
+        backward_caret_canvas.create_oval(5, 5, 45, 45, fill="white", outline="#1bc3cc")
+        self.backward_caret = backward_caret_canvas.create_text(25, 25, text="<", font=("Arial", 18, "bold"), fill="#1bc3cc")
+        backward_caret_canvas.tag_bind(self.backward_caret, "<Button-1>", self.show_previous_card)
+
+        forward_caret_canvas = tk.Canvas(caret_frame, width=50, height=50, bg='grey', bd=0, highlightthickness=0)
+        forward_caret_canvas.pack(side=tk.RIGHT, padx=10)
+        forward_caret_canvas.create_oval(5, 5, 45, 45, fill="white", outline="#1bc3cc")
+        self.forward_caret = forward_caret_canvas.create_text(25, 25, text=">", font=("Arial", 18, "bold"), fill="#1bc3cc")
+        forward_caret_canvas.tag_bind(self.forward_caret, "<Button-1>", self.show_next_card)
+
+    def flip_flashcard(self, event):
+        current_amendment = self.glossary_terms[self.current_card_index]
+        if self.is_front:
+            self.flashcard_canvas.itemconfig(self.flashcard, text=current_amendment["back"], font=("Arial", 16, "italic"))
+        else:
+            self.flashcard_canvas.itemconfig(self.flashcard, text=current_amendment["front"], font=("Arial", 18, "bold"))
+        self.is_front = not self.is_front
+
+    def show_next_card(self, event):
+        self.current_card_index = (self.current_card_index + 1) % len(self.glossary_terms)
+        self.update_flashcard()
+
+    def show_previous_card(self, event):
+        self.current_card_index = (self.current_card_index - 1) % len(self.glossary_terms)
+        self.update_flashcard()
+
+    def update_flashcard(self):
+        current_amendment = self.glossary_terms[self.current_card_index]
+        self.flashcard_canvas.itemconfig(self.flashcard, text=current_amendment["front"], font=("Arial", 18, "bold"))
+        self.is_front = True
+
+# Establishes relation of pages
 if __name__ == "__main__":
     root = tk.Tk()
     root.geometry("1200x800")
@@ -182,3 +272,4 @@ if __name__ == "__main__":
     legislative_process_page.pack(fill="both", expand=True)
 
     root.mainloop()
+
