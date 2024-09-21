@@ -121,7 +121,7 @@ class AmendmentsPage(tk.Frame):
         back_button = tk.Button(self, text="Back", command=show_homepage, **back_button_style)
         back_button.pack(side=tk.BOTTOM, anchor=tk.SE, padx=10, pady=10)
 
-    def show_video(self, event):
+    def show_video(self):
         # Load the video file
         self.cap = cv2.VideoCapture("path/to/your/video.mp4")
 
@@ -130,10 +130,10 @@ class AmendmentsPage(tk.Frame):
 
     def update_video(self):
         if self.cap.isOpened():
-            ret, frame = self.cap.read()
+            ret = self.cap.read()
             if ret:
                 # Convert frame to RGB
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                frame = cv2.cvtColor(self.history_frame, cv2.COLOR_BGR2RGB)
                 # Convert to ImageTk
                 img = Image.fromarray(frame)
                 img_tk = ImageTk.PhotoImage(image=img)
