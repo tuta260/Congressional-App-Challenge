@@ -14,7 +14,10 @@ ROUNDED_BUTTON_COLOR = "#1bc3cc"
 INTERNAL_BUTTON_COLOR = "#139c9f"
 INTERNAL_BUTTON_TEXT_COLOR = "black"
 
+
 class MainApplication(tk.Frame):
+    userID = ["Harrison","Aarush", "Guest"]
+
     def __init__(self, master):
         super().__init__(master)
         self.master = master
@@ -22,6 +25,8 @@ class MainApplication(tk.Frame):
         self.pack(fill="both", expand=True)
 
         self.master.attributes('-fullscreen', True)
+
+        
 
         title_label = tk.Label(self, text="Civic Engagement App", font=("Arial", 24, "bold"), bg=BACKGROUND_COLOR, fg=TITLE_COLOR)
         title_label.pack(pady=20)
@@ -60,6 +65,9 @@ class MainApplication(tk.Frame):
             ("The Legislative Process", self.show_legis_process_page),
         ]
 
+        self.username_display_label = tk.Label(self, text="Not Signed in", font=("Arial", 14, "bold"), bg='grey', fg='black')
+        self.username_display_label.place(relx=1.0, y=20, anchor="ne", x=-20)
+
         def create_rounded_button(row, col, text, command):
             canvas = tk.Canvas(button_frame, width=300, height=100, bg=BACKGROUND_COLOR, highlightthickness=0)
             canvas.grid(row=row, column=col, padx=20, pady=20)
@@ -90,8 +98,6 @@ class MainApplication(tk.Frame):
         bottom_frame = tk.Frame(self, bg=BACKGROUND_COLOR)
         bottom_frame.pack(side=tk.BOTTOM, anchor=tk.SE, padx=10, pady=10)
 
-        
-
         about_us_button = tk.Button(bottom_frame, text="About Us", command=self.show_about_us_page, **small_button_style)
         about_us_button.pack(side=tk.LEFT, padx=5)
 
@@ -100,6 +106,7 @@ class MainApplication(tk.Frame):
 
         login_button = tk.Button(bottom_frame, text="Login", command=self.show_login_page, **small_button_style)
         login_button.pack(side=tk.LEFT, padx=5)
+
 
     def open_page(self, page_class):
         self.pack_forget()
@@ -110,6 +117,7 @@ class MainApplication(tk.Frame):
         for widget in self.master.winfo_children():
             widget.pack_forget()
         self.pack(fill="both", expand=True)
+        self.username_display_label.config(text = f"User: {self.userID[0]}")
 
     def show_amendments_page(self):
         self.open_page(AmendmentsPage)
@@ -132,7 +140,7 @@ class MainApplication(tk.Frame):
     def show_login_page(self):
         self.open_page(LoginPage)
 
-# Example usage
+# Setup as main
 if __name__ == "__main__":
     root = tk.Tk()
     app = MainApplication(root)
