@@ -16,7 +16,7 @@ INTERNAL_BUTTON_TEXT_COLOR = "black"
 
 
 class MainApplication(tk.Frame):
-    userID = ["Harrison","Aarush", "Guest"]
+    userID = "Not Signed In"
 
     def __init__(self, master):
         super().__init__(master)
@@ -65,7 +65,7 @@ class MainApplication(tk.Frame):
             ("The Legislative Process", self.show_legis_process_page),
         ]
 
-        self.username_display_label = tk.Label(self, text="Not Signed in", font=("Arial", 14, "bold"), bg='grey', fg='black')
+        self.username_display_label = tk.Label(self, text=f"User: {self.userID}", font=("Arial", 14, "bold"), bg='grey', fg='black')
         self.username_display_label.place(relx=1.0, y=20, anchor="ne", x=-20)
 
         def create_rounded_button(row, col, text, command):
@@ -110,14 +110,18 @@ class MainApplication(tk.Frame):
 
     def open_page(self, page_class):
         self.pack_forget()
-        page_frame = page_class(self.master, self.show_homepage)
+        page_frame = page_class(self.master, self.show_homepage, self.userID)
         page_frame.pack(fill="both", expand=True)
 
     def show_homepage(self):
         for widget in self.master.winfo_children():
             widget.pack_forget()
         self.pack(fill="both", expand=True)
-        self.username_display_label.config(text = f"User: {self.userID[0]}")
+        f = open('users.txt')
+        text = f.read()
+        if(text!=""):
+            self.userID = text
+            self.username_display_label.config(text = f"User: {self.userID}")
 
     def show_amendments_page(self):
         self.open_page(AmendmentsPage)

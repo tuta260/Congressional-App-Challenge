@@ -1,13 +1,17 @@
 import tkinter as tk
 
 class ContactUsPage(tk.Frame):
-    def __init__(self, master, show_homepage):
+    def __init__(self, master, show_homepage, ID):
         super().__init__(master)
         self.configure(bg='grey')
 
         # Title
         title_label = tk.Label(self, text="Contact Us", font=("Arial", 24, "bold"), bg='grey', fg='black')
         title_label.pack(pady=20)
+
+        # Login info
+        self.username_display_label = tk.Label(self, text=f"User: {ID}", font=("Arial", 14, "bold"), bg='grey', fg='black')
+        self.username_display_label.place(relx=1.0, y=20, anchor="ne", x=-20)
 
         # Description
         description = "This is the Contact Us page. Include contact information or a form here for users to reach out."

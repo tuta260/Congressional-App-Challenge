@@ -1,7 +1,7 @@
 import tkinter as tk
 
 class AboutUsPage(tk.Frame):
-    def __init__(self, master, show_homepage):
+    def __init__(self, master, show_homepage, ID):
         super().__init__(master)
         self.configure(bg='grey')
 
@@ -10,7 +10,7 @@ class AboutUsPage(tk.Frame):
         title_label.pack(pady=20)
 
         # Login info
-        self.username_display_label = tk.Label(self, text="User: Harrison", font=("Arial", 14, "bold"), bg='grey', fg='black')
+        self.username_display_label = tk.Label(self, text=f"User: {ID}", font=("Arial", 14, "bold"), bg='grey', fg='black')
         self.username_display_label.place(relx=1.0, y=20, anchor="ne", x=-20)
 
         # Description

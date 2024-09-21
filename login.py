@@ -1,7 +1,7 @@
 import tkinter as tk
 
 class LoginPage(tk.Frame):
-    def __init__(self, master, show_homepage):
+    def __init__(self, master, show_homepage, ID):
         super().__init__(master)
         self.configure(bg='grey')
 
@@ -43,4 +43,9 @@ class LoginPage(tk.Frame):
 
         # Get the username from the entry field and display it on the top right in bold
         username = self.username_entry.get()
+        f = open('users.txt', 'w')
+        i=0
+        while(i<len(username)):
+            f.write(username[i])
+            i+=1
         self.username_display_label.config(text=f"User: {username}")
