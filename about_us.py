@@ -9,6 +9,10 @@ class AboutUsPage(tk.Frame):
         title_label = tk.Label(self, text="About Us", font=("Arial", 24, "bold"), bg='grey', fg='black')
         title_label.pack(pady=20)
 
+        # Login info
+        self.username_display_label = tk.Label(self, text="User: Harrison", font=("Arial", 14, "bold"), bg='grey', fg='black')
+        self.username_display_label.place(relx=1.0, y=20, anchor="ne", x=-20)
+
         # Description
         description = "This is the About Us page. Here you would typically include information about the organization or app."
         description_label = tk.Label(self, text=description, font=("Arial", 14), bg='grey', fg='black', wraplength=800)

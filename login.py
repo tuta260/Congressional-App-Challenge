@@ -44,4 +44,3 @@ class LoginPage(tk.Frame):
         # Get the username from the entry field and display it on the top right in bold
         username = self.username_entry.get()
         self.username_display_label.config(text=f"User: {username}")
-
