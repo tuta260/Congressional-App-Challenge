@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import Label
+import cv2
+from PIL import Image, ImageTk
 
 class AmendmentsPage(tk.Frame):
     def __init__(self, master, show_homepage, ID):
@@ -77,11 +80,18 @@ class AmendmentsPage(tk.Frame):
         for i, event in enumerate(events):
             event_frame = ttk.Frame(timeline_frame, padding=10, relief="raised", borderwidth=2)
             event_frame.grid(row=0, column=i, padx=10, pady=20)
-            tk.Label(event_frame, text=event["year"], font=("Arial", 14, "bold"), wraplength=150, justify="center").pack(pady=(0, 5))
-            tk.Label(event_frame, text=event["event"], font=("Arial", 12), wraplength=150, justify="center").pack()
+            tk.Button(event_frame, text=event["year"], font=("Arial", 14, "bold"), wraplength=150, justify="center", command=self.show_video).pack(pady=(0, 5))
+            tk.Button(event_frame, text=event["event"], font=("Arial", 12), wraplength=150, justify="center",command=self.show_video).pack()
 
         history_canvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
         history_scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
+
+        self.video_frame = tk.Frame(self)
+        self.video_frame.pack()
+
+        # Placeholder for video
+        self.video_label = Label(self.video_frame)
+        self.video_label.pack()
 
         notebook.add(history_frame, text="History")
 
@@ -110,6 +120,29 @@ class AmendmentsPage(tk.Frame):
 
         back_button = tk.Button(self, text="Back", command=show_homepage, **back_button_style)
         back_button.pack(side=tk.BOTTOM, anchor=tk.SE, padx=10, pady=10)
+
+    def show_video(self, event):
+        # Load the video file
+        self.cap = cv2.VideoCapture("path/to/your/video.mp4")
+
+        # Start the video
+        self.update_video()
+
+    def update_video(self):
+        if self.cap.isOpened():
+            ret, frame = self.cap.read()
+            if ret:
+                # Convert frame to RGB
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                # Convert to ImageTk
+                img = Image.fromarray(frame)
+                img_tk = ImageTk.PhotoImage(image=img)
+                # Update label
+                self.video_label.img_tk = img_tk  # Keep a reference
+                self.video_label.config(image=img_tk)
+                self.video_label.after(10, self.update_video)  # Repeat every 10ms
+            else:
+                self.cap.release()  # Release the video capture object
 
 
 class FlashcardFrame(tk.Frame):
@@ -198,7 +231,7 @@ class FlashcardFrame(tk.Frame):
         self.flashcard_canvas.itemconfig(self.flashcard, text=current_amendment["front"], font=("Arial", 18, "bold"))
         self.is_front = True
 
-# Example usage
+# Establishes Relation of Pages
 if __name__ == "__main__":
     root = tk.Tk()
     root.geometry("800x600")
