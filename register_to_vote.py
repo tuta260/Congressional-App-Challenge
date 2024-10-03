@@ -32,11 +32,6 @@ class RegisterToVotePage(tk.Frame):
         eligibility_frame.pack(fill=tk.BOTH, expand=True)
         notebook.add(eligibility_frame, text="Eligibility")
 
-        # Game Tab (Placeholder)
-        game_frame = ttk.Frame(notebook)
-        game_frame.pack(fill=tk.BOTH, expand=True)
-        notebook.add(game_frame, text="Game")
-
         # Back button with the same style as the other pages
         submit_button_style = {
             "font": ("Arial", 12),
@@ -54,7 +49,7 @@ class RegisterToVotePage(tk.Frame):
         back_button.pack(side=tk.BOTTOM, anchor=tk.SE, padx=10, pady=10)
 
         # Dropdown menu for state selection (Important Deadlines Tab)
-        state_label_deadlines = tk.Label(deadlines_frame, text="Select Your State:", font=("Arial", 18), bg='grey', fg='black')
+        state_label_deadlines = tk.Label(deadlines_frame, text="Select Your State:", font=("Arial", 18), bg = "#393a3a", fg='black')
         state_label_deadlines.pack(pady=10)
 
         states = [
@@ -81,7 +76,7 @@ class RegisterToVotePage(tk.Frame):
         submit_button_deadlines.pack(pady=10)
 
         # Create the table under the "Important Deadlines" Tab (initially hidden)
-        table_frame = tk.Frame(deadlines_frame, bg='grey')
+        table_frame = tk.Frame(deadlines_frame, bg = "#393a3a")
 
         # Create the columns and rows
         methods = ["In Person", "By Mail", "Online"]
@@ -92,10 +87,10 @@ class RegisterToVotePage(tk.Frame):
         ]
 
         for i, method in enumerate(methods):
-            method_label = tk.Label(table_frame, text=method, font=("Arial", 20, "bold"), bg='grey', fg='black', borderwidth=1, relief="solid", wraplength=400)
+            method_label = tk.Label(table_frame, text=method, font=("Arial", 20, "bold"), bg = "#393a3a", fg='black', borderwidth=1, relief="solid", wraplength=400)
             method_label.grid(row=i, column=0, sticky="nsew", padx=2, pady=2, ipady=5)
 
-            deadline_label = tk.Label(table_frame, text=deadlines[i], font=("Arial", 20), bg='grey', fg='black', borderwidth=1, relief="solid", wraplength=600)
+            deadline_label = tk.Label(table_frame, text=deadlines[i], font=("Arial", 20), bg = "#393a3a", fg='black', borderwidth=1, relief="solid", wraplength=600)
             deadline_label.grid(row=i, column=1, sticky="nsew", padx=2, pady=2, ipady=5)
 
         # Make columns expand equally
@@ -107,7 +102,7 @@ class RegisterToVotePage(tk.Frame):
             table_frame.grid_rowconfigure(i, weight=1)
 
         # Dropdown menu for state selection (Eligibility Tab)
-        state_label_eligibility = tk.Label(eligibility_frame, text="Select Your State:", font=("Arial", 18), bg='grey', fg='black')
+        state_label_eligibility = tk.Label(eligibility_frame, text="Select Your State:", font=("Arial", 18),bg = "#393a3a", fg='black')
         state_label_eligibility.pack(pady=10)
 
         state_var_eligibility = tk.StringVar()
@@ -129,8 +124,8 @@ class RegisterToVotePage(tk.Frame):
             text="(1) a New Mexico driver’s license or New Mexico identification card issued through the motor vehicle division of the taxation and revenue department;\n\n"
                  "(2) any document that contains an address in the county together with a photo identification card; or\n\n"
                  "(3) a current valid student photo identification card from a post-secondary educational institution in New Mexico accompanied by a current student fee statement that contains the student’s address in the county.",
-            font=("Arial", 14),
-            bg='grey',
+            font=("Arial", 24),
+            bg = "#393a3a",
             fg='black',
             justify=tk.LEFT,
             wraplength=800

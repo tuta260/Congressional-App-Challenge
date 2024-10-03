@@ -28,7 +28,7 @@ class MainApplication(tk.Frame):
 
         
 
-        title_label = tk.Label(self, text="Civic Engagement App", font=("Arial", 24, "bold"), bg=BACKGROUND_COLOR, fg=TITLE_COLOR)
+        title_label = tk.Label(self, text="Know Your Rights!", font=("Arial", 24, "bold"), bg=BACKGROUND_COLOR, fg=TITLE_COLOR)
         title_label.pack(pady=20)
 
         button_frame = tk.Frame(self, bg=BACKGROUND_COLOR)
