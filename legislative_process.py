@@ -1,17 +1,26 @@
 import tkinter as tk
 from tkinter import ttk
 
+BGCOLOR = 'SteelBlue4'
+FGCOLOR = 'slategray1'
+
+TITLEFONT = 'Arial'
+LABELFONT = 'Arial'
+
+BGCOLOR2 = 'SteelBlue2'
+FGCOLOR2 = 'black'
+
 class LegislativeProcessPage(tk.Frame):
     def __init__(self, master, show_homepage, ID):
         super().__init__(master)
-        self.configure(bg='grey')
+        self.configure(bg=BGCOLOR)
 
         # Title
-        title_label = tk.Label(self, text="Legislative Process", font=("Arial", 24, "bold"), bg='grey', fg='black')
+        title_label = tk.Label(self, text="Legislative Process", font=(TITLEFONT, 24, "bold"), bg=BGCOLOR, fg=FGCOLOR)
         title_label.pack(pady=20)
 
         # Login info
-        self.username_display_label = tk.Label(self, text=f"User: {ID}", font=("Arial", 14, "bold"), bg='grey', fg='black')
+        self.username_display_label = tk.Label(self, text=f"User: {ID}", font=(TITLEFONT, 14, "bold"), bg=BGCOLOR, fg=FGCOLOR)
         self.username_display_label.place(relx=1.0, y=20, anchor="ne", x=-20)
 
         # Create a PanedWindow widget to manage the layout
@@ -27,9 +36,9 @@ class LegislativeProcessPage(tk.Frame):
         stages_frame.pack(fill=tk.BOTH, expand=True)
         notebook.add(stages_frame, text="Stages")
 
-        stages_canvas = tk.Canvas(stages_frame, bg='grey')
+        stages_canvas = tk.Canvas(stages_frame, bg=BGCOLOR2)
         stages_scrollbar = tk.Scrollbar(stages_frame, orient="vertical", command=stages_canvas.yview)
-        stages_scrollable_frame = tk.Frame(stages_canvas, bg='grey')
+        stages_scrollable_frame = tk.Frame(stages_canvas, bg=BGCOLOR2)
 
         stages_scrollable_frame.bind(
             "<Configure>",
@@ -56,13 +65,13 @@ class LegislativeProcessPage(tk.Frame):
         ]
 
         for stage_name, description in stages_of_legislation:
-            stage_label = tk.Label(stages_scrollable_frame, text=stage_name, font=("Arial", 16, "bold"), bg='grey', fg='black', anchor="w")
+            stage_label = tk.Label(stages_scrollable_frame, text=stage_name, font=(LABELFONT, 16, "bold"), bg=BGCOLOR2, fg=FGCOLOR2, anchor="w")
             stage_label.pack(fill="x", padx=10, pady=10)
 
-            description_label = tk.Label(stages_scrollable_frame, text=description, font=("Arial", 14), bg='grey', fg='black', wraplength=900, justify="left", anchor="w")
+            description_label = tk.Label(stages_scrollable_frame, text=description, font=(LABELFONT, 14), bg=BGCOLOR2, fg=FGCOLOR2, wraplength=900, justify="left", anchor="w")
             description_label.pack(fill="x", padx=10, pady=5)
 
-            separator = tk.Frame(stages_scrollable_frame, height=2, bd=1, relief="sunken", bg='black')
+            separator = tk.Frame(stages_scrollable_frame, height=2, bd=1, relief="sunken", bg=FGCOLOR2)
             separator.pack(fill="x", padx=20, pady=20)
 
         # Types Tab with Scrollable Glossary
@@ -70,9 +79,9 @@ class LegislativeProcessPage(tk.Frame):
         types_frame.pack(fill=tk.BOTH, expand=True)
         notebook.add(types_frame, text="Types")
 
-        types_canvas = tk.Canvas(types_frame, bg='grey')
+        types_canvas = tk.Canvas(types_frame, bg=BGCOLOR2)
         types_scrollbar = tk.Scrollbar(types_frame, orient="vertical", command=types_canvas.yview)
-        types_scrollable_frame = tk.Frame(types_canvas, bg='grey')
+        types_scrollable_frame = tk.Frame(types_canvas, bg=BGCOLOR2)
 
         types_scrollable_frame.bind(
             "<Configure>",
@@ -104,10 +113,10 @@ class LegislativeProcessPage(tk.Frame):
         }
 
         for type_name, description in types_of_legislation.items():
-            type_label = tk.Label(types_scrollable_frame, text=type_name, font=("Arial", 14, "bold"), bg='grey', fg='black', anchor="w")
+            type_label = tk.Label(types_scrollable_frame, text=type_name, font=(LABELFONT, 14, "bold"), bg=BGCOLOR2, fg=FGCOLOR2, anchor="w")
             type_label.pack(fill="x", padx=10, pady=5)
 
-            description_label = tk.Label(types_scrollable_frame, text=description, font=("Arial", 12), bg='grey', fg='black', wraplength=900, justify="left", anchor="w")
+            description_label = tk.Label(types_scrollable_frame, text=description, font=(LABELFONT, 12), bg=BGCOLOR2, fg=FGCOLOR2, wraplength=900, justify="left", anchor="w")
             description_label.pack(fill="x", padx=10, pady=5)
 
         # Jargon Tab with Scrollable Glossary
@@ -115,9 +124,9 @@ class LegislativeProcessPage(tk.Frame):
         jargon_frame.pack(fill=tk.BOTH, expand=True)
         notebook.add(jargon_frame, text="Jargon")
 
-        jargon_canvas = tk.Canvas(jargon_frame, bg='grey')
+        jargon_canvas = tk.Canvas(jargon_frame, bg=BGCOLOR2)
         jargon_scrollbar = tk.Scrollbar(jargon_frame, orient="vertical", command=jargon_canvas.yview)
-        jargon_scrollable_frame = tk.Frame(jargon_canvas, bg='grey')
+        jargon_scrollable_frame = tk.Frame(jargon_canvas, bg=BGCOLOR2)
 
         jargon_scrollable_frame.bind(
             "<Configure>",
@@ -155,10 +164,10 @@ class LegislativeProcessPage(tk.Frame):
         }
 
         for term, definition in glossary_terms.items():
-            term_label = tk.Label(jargon_scrollable_frame, text=term, font=("Arial", 14, "bold"), bg='grey', fg='black', anchor="w")
+            term_label = tk.Label(jargon_scrollable_frame, text=term, font=("Arial", 14, "bold"), bg=BGCOLOR2, fg=FGCOLOR2, anchor="w")
             term_label.pack(fill="x", padx=10, pady=5)
 
-            definition_label = tk.Label(jargon_scrollable_frame, text=definition, font=("Arial", 12), bg='grey', fg='black', wraplength=900, justify="left", anchor="w")
+            definition_label = tk.Label(jargon_scrollable_frame, text=definition, font=("Arial", 12), bg=BGCOLOR2, fg=FGCOLOR2, wraplength=900, justify="left", anchor="w")
             definition_label.pack(fill="x", padx=10, pady=5)
 
         # Back button with a simpler style
