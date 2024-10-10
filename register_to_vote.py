@@ -1,22 +1,26 @@
 import tkinter as tk
 from tkinter import ttk
 
+
+BGCOLOR = 'SteelBlue4'
+FGCOLOR = 'slategray1'
+
 class RegisterToVotePage(tk.Frame):
     def __init__(self, master, show_homepage, ID):
         super().__init__(master)
-        self.configure(bg='grey')
+        self.configure(bg=BGCOLOR)
 
         # Title
-        title_label = tk.Label(self, text="Register to Vote", font=("Arial", 24, "bold"), bg='grey', fg='black')
+        title_label = tk.Label(self, text="Register to Vote", font=("Arial", 24, "bold"), bg=BGCOLOR, fg=FGCOLOR)
         title_label.pack(pady=20)
 
         # Login info
-        self.username_display_label = tk.Label(self, text=f"User: {ID}", font=("Arial", 14, "bold"), bg='grey', fg='black')
+        self.username_display_label = tk.Label(self, text=f"User: {ID}", font=("Arial", 14, "bold"), bg=BGCOLOR, fg=FGCOLOR)
         self.username_display_label.place(relx=1.0, y=20, anchor="ne", x=-20)
 
         # Create a PanedWindow widget to manage the layout
         paned_window = ttk.PanedWindow(self, orient=tk.HORIZONTAL)
-        paned_window.pack(expand=True, pady=10, padx=10, fill=tk.BOTH)
+        paned_window.pack(expand=True, pady=10, padx=10, fill=tk.BOTH,)
 
         # Create a Notebook widget (tabbed interface)
         notebook = ttk.Notebook(paned_window)
@@ -49,7 +53,7 @@ class RegisterToVotePage(tk.Frame):
         back_button.pack(side=tk.BOTTOM, anchor=tk.SE, padx=10, pady=10)
 
         # Dropdown menu for state selection (Important Deadlines Tab)
-        state_label_deadlines = tk.Label(deadlines_frame, text="Select Your State:", font=("Arial", 18), bg = "#393a3a", fg='black')
+        state_label_deadlines = tk.Label(deadlines_frame, text="Select Your State:", font=("Arial", 18), bg = "#e4e4e4", fg='black')
         state_label_deadlines.pack(pady=10)
 
         states = [
@@ -76,7 +80,7 @@ class RegisterToVotePage(tk.Frame):
         submit_button_deadlines.pack(pady=10)
 
         # Create the table under the "Important Deadlines" Tab (initially hidden)
-        table_frame = tk.Frame(deadlines_frame, bg = "#393a3a")
+        table_frame = tk.Frame(deadlines_frame, bg = 'SteelBlue4')
 
         # Create the columns and rows
         methods = ["In Person", "By Mail", "Online"]
@@ -87,10 +91,10 @@ class RegisterToVotePage(tk.Frame):
         ]
 
         for i, method in enumerate(methods):
-            method_label = tk.Label(table_frame, text=method, font=("Arial", 20, "bold"), bg = "#393a3a", fg='black', borderwidth=1, relief="solid", wraplength=400)
+            method_label = tk.Label(table_frame, text=method, font=("Arial", 20, "bold"), bg = "#d4d4d4", fg='black', borderwidth=1, relief="solid", wraplength=400)
             method_label.grid(row=i, column=0, sticky="nsew", padx=2, pady=2, ipady=5)
 
-            deadline_label = tk.Label(table_frame, text=deadlines[i], font=("Arial", 20), bg = "#393a3a", fg='black', borderwidth=1, relief="solid", wraplength=600)
+            deadline_label = tk.Label(table_frame, text=deadlines[i], font=("Arial", 20), bg = "#d4d4d4", fg='black', borderwidth=1, relief="solid", wraplength=600)
             deadline_label.grid(row=i, column=1, sticky="nsew", padx=2, pady=2, ipady=5)
 
         # Make columns expand equally
@@ -102,7 +106,7 @@ class RegisterToVotePage(tk.Frame):
             table_frame.grid_rowconfigure(i, weight=1)
 
         # Dropdown menu for state selection (Eligibility Tab)
-        state_label_eligibility = tk.Label(eligibility_frame, text="Select Your State:", font=("Arial", 18),bg = "#393a3a", fg='black')
+        state_label_eligibility = tk.Label(eligibility_frame, text="Select Your State:", font=("Arial", 18),bg = "#e4e4e4", fg='black')
         state_label_eligibility.pack(pady=10)
 
         state_var_eligibility = tk.StringVar()
@@ -124,8 +128,8 @@ class RegisterToVotePage(tk.Frame):
             text="(1) a New Mexico driver’s license or New Mexico identification card issued through the motor vehicle division of the taxation and revenue department;\n\n"
                  "(2) any document that contains an address in the county together with a photo identification card; or\n\n"
                  "(3) a current valid student photo identification card from a post-secondary educational institution in New Mexico accompanied by a current student fee statement that contains the student’s address in the county.",
-            font=("Arial", 24),
-            bg = "#393a3a",
+            font=("Times New Roman", 24),
+            bg = "#d4d4d4",
             fg='black',
             justify=tk.LEFT,
             wraplength=800
